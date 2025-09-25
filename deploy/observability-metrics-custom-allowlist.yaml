@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: observability-metrics-custom-allowlist
+data:
+  metrics_list.yaml: |
+    names:
+      - nginx_http_requests_total
+      - nginx_up
+      - nginx_connections_active
+      - nginxexporter_build_info
+      - nginx_connections_handled
+      - nginx_connections_reading
+      - nginx_connections_waiting
+      - nginx_connections_writing
+      - nginx_http_requests_total
+      - nginx_connections_accepted
