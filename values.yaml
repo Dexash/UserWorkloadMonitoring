@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: quay.io/openshift-examples/web
+  tag: main
+  pullPolicy: IfNotPresent
+
+exporterImage:
+  repository: docker.io/nginx/nginx-prometheus-exporter
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    http: 8080
+    metrics: 9113
+
+namespace: user-monitoring
