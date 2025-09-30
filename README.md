@@ -132,3 +132,63 @@ spec:
 
 
 
+---
+
+##  Example Values - values.yaml
+
+You can customize the chart by editing `values.yaml`.  
+Below are two examples: a **generic template** and a **ready-to-use Nginx example**.
+```
+### Generic values.yaml
+
+```yaml
+replicaCount: 1
+
+app:
+  name: <app-name>                     # Change: application name (used for Deployment, Service, Route, etc.)
+
+image:
+  repository: <workload-image>         # Change: container image for workload
+  tag: <tag>
+  pullPolicy: IfNotPresent
+
+exporterImage:
+  repository: <exporter-image>         # Change: Prometheus exporter image
+  tag: <tag>
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    http: <workload-port>              # Change: main application port
+    metrics: <exporter-port>           # Change: exporter metrics port
+
+namespace: <team-namespace>            # Change: target namespace for workload
+
+``` 
+### Example values-nginx.yaml
+
+```
+
+replicaCount: 1
+
+app:
+  name: nginxapp
+
+image:
+  repository: quay.io/nginx/nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+
+exporterImage:
+  repository: quay.io/nginx/nginx-prometheus-exporter
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    http: 8080
+    metrics: 9113
+
+namespace: nginx-team
