@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginxapp
+  name: {{ .Values.app.name }}
   namespace: {{ .Values.namespace }}
   labels:
-    app: nginxapp
+    app: {{ .Values.app.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: nginxapp
+      app: {{ .Values.app.name }}
   template:
     metadata:
       labels:
-        app: nginxapp
+        app: {{ .Values.app.name }}
     spec:
       containers:
-        - name: web
+        - name: {{ .Values.app.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -26,11 +26,11 @@ spec:
             httpGet:
               path: /
               port: {{ .Values.service.ports.http }}
-        - name: nginx-prometheus-exporter
+        - name: {{ .Values.app.name }}-exporter
           image: "{{ .Values.exporterImage.repository }}:{{ .Values.exporterImage.tag }}"
           imagePullPolicy: {{ .Values.exporterImage.pullPolicy }}
           args:
-            - -nginx.scrape-uri=http://localhost:8081/
+            - -nginx.scrape-uri=http://localhost:{{ .Values.service.ports.http }}/
           ports:
             - name: metrics
               containerPort: {{ .Values.service.ports.metrics }}

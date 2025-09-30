@@ -1,19 +1,22 @@
 replicaCount: 1
 
+app:
+  name: <app-name>                     # Change: application name (used for Deployment, Service, Route, etc.)
+
 image:
-  repository: quay.io/openshift-examples/web
-  tag: main
+  repository: <workload-image>         # Change: container image for workload
+  tag: <tag>
   pullPolicy: IfNotPresent
 
 exporterImage:
-  repository: docker.io/nginx/nginx-prometheus-exporter
-  tag: latest
+  repository: <exporter-image>         # Change: Prometheus exporter image
+  tag: <tag>
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   ports:
-    http: 8080
-    metrics: 9113
+    http: <workload-port>              # Change: main application port
+    metrics: <exporter-port>           # Change: exporter metrics port
 
-namespace: user-monitoring
+namespace: <team-namespace>            # Change: target namespace for workload

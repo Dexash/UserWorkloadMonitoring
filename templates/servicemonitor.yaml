@@ -1,17 +1,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: nginxapp
+  name: {{ .Values.app.name }}
   namespace: openshift-monitoring
   labels:
-    app: nginxapp
+    app: {{ .Values.app.name }}
 spec:
   namespaceSelector:
     matchNames:
       - {{ .Values.namespace }}
   selector:
     matchLabels:
-      app: nginxapp
+      app: {{ .Values.app.name }}
   endpoints:
     - port: metrics
       interval: 30s

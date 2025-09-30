@@ -1,6 +1,6 @@
 apiVersion: v2
 name: userworkloadmonitoring
-description: Helm chart for deploying nginxapp workload with monitoring
+description: Helm chart for deploying a workload with monitoring (UWM + ACM integration)
 type: application
 version: 0.1.0
 appVersion: "1.0"
